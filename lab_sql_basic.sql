@@ -71,6 +71,7 @@ FROM actor a;
 -- =======================================
 -- 6. Retrieve the 10 longest films.
 -- =======================================
+
 SELECT title, length AS length_flim
 FROM film
 HAVING length_flim > 184; 
