@@ -5,7 +5,7 @@
 USE sakila; 
 
 -- =======================================
--- 1. Retrieve all the data from the tables actor, film and customer
+-- 2. Retrieve all the data from the tables actor, film and customer
 -- =======================================
 
 -- Actor table selection. 
@@ -46,19 +46,39 @@ FROM film;
 -- =======================================
 
 -- Determine the number of stores that the company has.
+SELECT store_id, COUNT(*) as number_of_stores
+FROM store; 
 
 -- Determine the number of employees that the company has.
-
+SELECT COUNT(*) as number_of_staff
+FROM staff;
+ 
 -- Determine how many films are available for rent and how many have been rented.
+SELECT SUM(f.film_id) AS total_films, SUM(r.return_date IS NULL) AS rented 
+FROM film f 
+LEFT JOIN inventory i
+ON f.film_id = i.film_id
+LEFT JOIN rental r 
+ON i.inventory_id = r.inventory_id;
 
 -- Determine the number of distinct last names of the actors in the database.
+SELECT DISTINCT COUNT(a.last_name) AS total_number
+FROM actor a;
+
+SELECT COUNT(DISTINCT a.last_name) AS total_number
+FROM actor a;
 
 -- =======================================
 -- 6. Retrieve the 10 longest films.
 -- =======================================
-
+SELECT title, length AS length_flim
+FROM film
+HAVING length_flim > 184; 
 -- =======================================
 -- 7. Use filtering techniques in order to:
 -- =======================================
 
 -- Retrieve all actors with the first name "SCARLETT". 
+SELECT a.first_name, a.last_name 
+FROM actor a 
+HAVING first_name = "Scarlett"; 
